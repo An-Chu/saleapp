@@ -7,5 +7,10 @@ def load_data(path):
 def load_categories():
     return load_data(os.path.join(app.root_path, 'data/categories.json'))
 
-def load_products():
-    return load_data(os.path.join(app.root_path, 'data/products.json'))
+def load_products(category_id=None):
+    products = load_data(os.path.join(app.root_path, 'data/products.json'))
+
+    if category_id:
+        products = [p for p in products if p['category_id'] == int(category_id)]
+
+    return products
