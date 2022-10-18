@@ -1,10 +1,16 @@
-from flask import Flask, render_template
+from flask import render_template
 
-app = Flask(__name__)
+from app import app
+from app import dao
+
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    categories = dao.load_categories()
+    products = dao.load_products()
 
-if __name__ == '___main__':
-    app.run(debug=True)
+    return render_template('index.html', categories=categories, products=products)
+
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5001)
